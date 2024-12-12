@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I CONCURS DE PARADES COMERCIALS DESL MERCATS MUNICIPALS DE PALMA 2024</title>
+    <style>
+        /* Reset general */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Evitar desplazamiento horizontal */
+        html {
+            overflow-y: scroll;
+            box-sizing: border-box;
+            /* Asegura que el ancho no cambie */
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-color: #eee;
+            background-image: url('https://www.transparenttextures.com/patterns/snow.png');
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            /* Permite que el contenido principal ocupe todo el espacio disponible */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #09548a;
+            font-size: 2rem;
+            /* Ajustable según el tamaño de pantalla */
+            font-family: 'Calibri Light', Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1rem;
+            /* Ajustable según el tamaño de pantalla */
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #e03e52;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1rem;
+            /* Ajustable */
+            text-decoration: none;
+            border: none;
+            transition: background-color 0.3s, transform 0.3s;
+            border: 2px solid #fff;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #a83224;
+            transform: scale(1.05);
+        }
+
+        .button-secondary {
+            background-color: #09548a;
+        }
+
+        .button-secondary:hover {
+            background-color: #073c5a;
+        }
+
+        .tree-container {
+            margin: 20px auto;
+        }
+
+        .tree-container img {
+            max-width: 250px;
+            height: auto;
+        }
+
+        footer {
+            background-color: #f3f3f3;
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .footer-logos img {
+            max-width: 230px;
+            height: auto;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Decoración navideña: Copos de nieve */
+        .snowflake {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            animation: fall 10s linear infinite;
+            transform: translateX(-50%);
+            opacity: 0.9;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(-50%);
+            }
+
+            100% {
+                transform: translateY(100vh) translateX(-50%);
+            }
+        }
+
+
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            footer {
+                flex-direction: flex;
+                gap: 10px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-logos img {
+                max-width: 150px;
+            }
+
+            footer p {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-logos img {
+                max-width: 200px;
+            }
+
+            footer p {
+                font-size: 0.75rem;
+            }
+        }
+
+
+        /* Selector de idioma */
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .language-selector select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Menú hamburguesa */
+        .menu-hamburger {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .menu-content select {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-hamburger {
+                display: block;
+            }
+
+            .desktop-language-selector {
+                display: none;
+            }
+    </style>
+</head>
+
+<body>
+    <main>
+        <!-- Selector de idioma -->
+        <div class="language-selector desktop-language-selector">
+            <select id="language-select">
+                <option value="es">Español</option>
+                <option value="ca">Català</option>
+            </select>
+        </div>
+
+        <!-- Menú hamburguesa -->
+        <div class="menu-hamburger" onclick="toggleMenu()">☰</div>
+        <div class="menu-content">
+            <select id="language-select-mobile">
+                <option value="es">Español</option>
+                <option value="ca">Català</option>
+            </select>
+        </div>
+        <!-- Árbol de Navidad -->
+        <div class="tree-container">
+            <img src="./fotos/regalo-de-navidad.png" alt="Árbol de Navidad">
+        </div>
+
+        <!-- Título y descripción -->
+
+        <h1 id="title">PRIMER CONCURSO DE DECORACIÓN NAVIDEÑA DE LOS MERCADOS MUNICIPALES DE PALMA 2024</h1>
+        <p id="description">¡Comparte la magia de la Navidad con tu gente! Consulta las bases
+            y participa ahora.</p>
+
+        <!-- Botones -->
+        <div class="button-container">
+            <a href="https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=es" id="button-bases" class="button button-secondary" target="_blank">🎁 Bases</a>
+            <a href="https://palmaactiva.sedipualba.es/carpetaciudadana/tramite.aspx?idtramite=14079" id="button-participate" class="button button-secondary" target="_blank">🎉
+                Participar como establecimiento</a>
+            <a href="https://pollunit.com/polls/u7fyzf-a02lfwyfulrijgq" id="button-vote" class="button" target="_blank">✅ Votar</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logos">
+            <img src="./fotos/Logo És Comerç.png" alt="Logos Ajuntament de Palma">
+        </div>
+        <p>PalmaActiva &copy; 2024</p>
+    </footer>
+
+    <!-- Efecto de copos de nieve -->
+    <img src="./fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake">
+    <img src="./fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake" style="left: 20%; animation-duration: 12s;">
+    <img src="../fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake" style="left: 70%; animation-duration: 8s;">
+    <img src="../fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake" style="left: 90%; animation-duration: 15s;">
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.menu-content');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        const translations = {
+            es: {
+                title: "PRIMER CONCURSO DE DECORACIÓN NAVIDEÑA DE LOS MERCADOS MUNICIPALES DE PALMA 2024",
+                description: 'A partir del 19 de diciembre, hasta el 5 de enero, puedes votar por la decoración que más te guste. ',
+                buttonBases: '📕 Bases',
+                buttonParticipate: '👉 Participar como establecimiento',
+                buttonVote: '🤍 Votar',
+                linkBases: 'https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=es'
+            },
+            ca: {
+                title: 'PRIMER CONCURS DE DECORACIÓ NADALENCA DELS MERCATS MUNICIPALS DE PALMA 2024',
+                description: "A partir del 19 de desembre i fins al 5 de gener, pots votar per la decoració que més t'agradi.",
+                buttonBases: '📕 Bases',
+                buttonParticipate: '👉 Participar com a establiment',
+                buttonVote: '🤍 Votar',
+                linkBases: 'https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=ca'
+            }
+        };
+
+        function updateLanguage(language) {
+            const translation = translations[language];
+            document.getElementById('title').textContent = translation.title;
+            document.getElementById('description').textContent = translation.description;
+            document.getElementById('button-bases').textContent = translation.buttonBases;
+            document.getElementById('button-participate').textContent = translation.buttonParticipate;
+            document.getElementById('button-vote').textContent = translation.buttonVote;
+            document.getElementById('button-bases').setAttribute('href', translation.linkBases);
+        }
+
+        document.getElementById('language-select').addEventListener('change', (event) => {
+            updateLanguage(event.target.value);
+        });
+
+        document.getElementById('language-select-mobile').addEventListener('change', (event) => {
+            updateLanguage(event.target.value);
+        });
+
+        updateLanguage('es');
+    </script>
+</body>
+
+</html>
