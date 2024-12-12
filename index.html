@@ -94,6 +94,14 @@
             background-color: #073c5a;
         }
 
+        .button[disabled] {
+            background-color: #ccc;
+            color: #999;
+            cursor: not-allowed;
+            pointer-events: none;
+            /* Previene clics */
+        }
+
         .tree-container {
             margin: 20px auto;
         }
@@ -270,10 +278,13 @@
 
         <!-- Botones -->
         <div class="button-container">
-            <a href="https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=es" id="button-bases" class="button button-secondary" target="_blank">🎁 Bases</a>
-            <a href="https://palmaactiva.sedipualba.es/carpetaciudadana/tramite.aspx?idtramite=14079" id="button-participate" class="button button-secondary" target="_blank">🎉
+            <a href="https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=es"
+                id="button-bases" class="button button-secondary" target="_blank">🎁 Bases</a>
+            <a href="https://palmaactiva.sedipualba.es/carpetaciudadana/tramite.aspx?idtramite=14079"
+                id="button-participate" class="button button-secondary" target="_blank">🎉
                 Participar como establecimiento</a>
-            <a href="https://pollunit.com/polls/u7fyzf-a02lfwyfulrijgq" id="button-vote" class="button" target="_blank">✅ Votar</a>
+            <a href="https://pollunit.com/polls/u7fyzf-a02lfwyfulrijgq" id="button-vote" class="button" disabled>🤍
+                Votar</a>
         </div>
     </main>
 
@@ -286,9 +297,12 @@
 
     <!-- Efecto de copos de nieve -->
     <img src="./fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake">
-    <img src="./fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake" style="left: 20%; animation-duration: 12s;">
-    <img src="./fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake" style="left: 70%; animation-duration: 8s;">
-    <img src="./fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake" style="left: 90%; animation-duration: 15s;">
+    <img src="./fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake"
+        style="left: 20%; animation-duration: 12s;">
+    <img src="../fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake"
+        style="left: 70%; animation-duration: 8s;">
+    <img src="../fotos/copo-de-nieve(1).png" alt="Copo de nieve" class="snowflake"
+        style="left: 90%; animation-duration: 15s;">
 
     <script>
         function toggleMenu() {
@@ -299,42 +313,66 @@
         const translations = {
             es: {
                 title: "PRIMER CONCURSO DE DECORACIÓN NAVIDEÑA DE LOS MERCADOS MUNICIPALES DE PALMA 2024",
-                description: 'A partir del 19 de diciembre, hasta el 5 de enero, puedes votar por la decoración que más te guste. ',
-                buttonBases: '📕 Bases',
-                buttonParticipate: '👉 Participar como establecimiento',
-                buttonVote: '🤍 Votar',
-                linkBases: 'https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=es'
+                description: "A partir del 19 de diciembre, hasta el 5 de enero, puedes votar por la decoración que más te guste.",
+                buttonBases: "📕 Bases",
+                buttonParticipate: "👉 Participar como establecimiento",
+                buttonVote: "🤍 Votar",
+                linkBases: "https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=es"
             },
             ca: {
-                title: 'PRIMER CONCURS DE DECORACIÓ NADALENCA DELS MERCATS MUNICIPALS DE PALMA 2024',
+                title: "PRIMER CONCURS DE DECORACIÓ NADALENCA DELS MERCATS MUNICIPALS DE PALMA 2024",
                 description: "A partir del 19 de desembre i fins al 5 de gener, pots votar per la decoració que més t'agradi.",
-                buttonBases: '📕 Bases',
-                buttonParticipate: '👉 Participar com a establiment',
-                buttonVote: '🤍 Votar',
-                linkBases: 'https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=ca'
+                buttonBases: "📕 Bases",
+                buttonParticipate: "👉 Participar com a establiment",
+                buttonVote: "🤍 Votar",
+                linkBases: "https://palmaactiva.sedipualba.es/carpetaciudadana/documentoinformativo.aspx?id=2684&abrir=True&idioma=ca"
             }
         };
 
         function updateLanguage(language) {
             const translation = translations[language];
-            document.getElementById('title').textContent = translation.title;
-            document.getElementById('description').textContent = translation.description;
-            document.getElementById('button-bases').textContent = translation.buttonBases;
-            document.getElementById('button-participate').textContent = translation.buttonParticipate;
-            document.getElementById('button-vote').textContent = translation.buttonVote;
-            document.getElementById('button-bases').setAttribute('href', translation.linkBases);
+            document.getElementById("title").textContent = translation.title;
+            document.getElementById("description").textContent = translation.description;
+            document.getElementById("button-bases").textContent = translation.buttonBases;
+            document.getElementById("button-participate").textContent = translation.buttonParticipate;
+            document.getElementById("button-vote").textContent = translation.buttonVote;
+            document.getElementById("button-bases").setAttribute("href", translation.linkBases);
+
+            // Actualiza el estado del botón de votar en función de la fecha
+            checkVoteButtonStatus();
         }
 
-        document.getElementById('language-select').addEventListener('change', (event) => {
+        // Configura el período en el que el botón de votar estará habilitado
+        const startDate = new Date("2024-12-19T00:00:00");
+        const endDate = new Date("2025-01-05T23:59:59");
+
+        function checkVoteButtonStatus() {
+            const now = new Date();
+            const voteButton = document.getElementById("button-vote");
+
+            if (now >= startDate && now <= endDate) {
+                voteButton.removeAttribute("disabled"); // Habilita el botón
+                voteButton.classList.remove("disabled"); // Quita estilos de deshabilitado (si los tienes)
+            } else {
+                voteButton.setAttribute("disabled", "true"); // Deshabilita el botón
+                voteButton.classList.add("disabled"); // Aplica estilos de deshabilitado (opcional)
+                voteButton.textContent = "Votación no disponible"; // Texto alternativo
+            }
+        }
+
+        // Escucha los cambios en el selector de idioma
+        document.getElementById("language-select").addEventListener("change", (event) => {
             updateLanguage(event.target.value);
         });
 
-        document.getElementById('language-select-mobile').addEventListener('change', (event) => {
+        document.getElementById("language-select-mobile").addEventListener("change", (event) => {
             updateLanguage(event.target.value);
         });
 
-        updateLanguage('es');
+        // Actualiza el idioma por defecto y verifica el botón
+        updateLanguage("es");
     </script>
+
 </body>
 
 </html>
